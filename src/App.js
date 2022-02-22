@@ -3,9 +3,14 @@ import producerContacts from './contacts.json';
 import { useState } from 'react';
 
 function App() {
-  const [contacts, setContacts] = useState(producerContacts.slice(0, 5));
+  const [contacts, setContacts] = useState(producerContacts.splice(0, 5));
+  const randomIndex = Math.floor(Math.random() * producerContacts.length);
+  const addContact = () => {
+    setContacts([...contacts, producerContacts[randomIndex]]);
+  };
   return (
     <div className="App">
+      <button onClick={addContact}>Add new random contact</button>
       <table>
         <thead>
           <tr>
