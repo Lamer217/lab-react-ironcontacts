@@ -3,14 +3,28 @@ import producerContacts from './contacts.json';
 import { useState } from 'react';
 
 function App() {
-  const [contacts, setContacts] = useState(producerContacts.splice(0, 5));
+  const [contacts, setContacts] = useState(producerContacts.slice(0, 5));
   const randomIndex = Math.floor(Math.random() * producerContacts.length);
   const addContact = () => {
     setContacts([...contacts, producerContacts[randomIndex]]);
   };
+  const sortByName = () => {
+    setContacts([
+      ...contacts.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      }),
+    ]);
+  };
+  const sortByPopularity = () => {
+    setContacts([...contacts.sort((a, b) => b.popularity - a.popularity)]);
+  };
   return (
     <div className="App">
       <button onClick={addContact}>Add new random contact</button>
+      <button onClick={sortByName}>Sort by name</button>
+      <button onClick={sortByPopularity}>Sort by popularity</button>
       <table>
         <thead>
           <tr>
