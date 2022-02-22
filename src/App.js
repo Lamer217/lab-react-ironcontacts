@@ -20,6 +20,9 @@ function App() {
   const sortByPopularity = () => {
     setContacts([...contacts.sort((a, b) => b.popularity - a.popularity)]);
   };
+  const removeActor = id => {
+    setContacts([...contacts.filter(actor => actor.id !== id)]);
+  };
   return (
     <div className="App">
       <button onClick={addContact}>Add new random contact</button>
@@ -33,6 +36,7 @@ function App() {
             <th>Popularity</th>
             <th>Won an Oscar</th>
             <th>Won an Emmy</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -45,6 +49,11 @@ function App() {
               <td>{contact.popularity.toFixed(2)}</td>
               <td>{contact.wonOscar ? '🏆' : '❌'}</td>
               <td>{contact.wonEmmy ? '🏆' : '❌'}</td>
+              <td>
+                <button onClick={removeActor.bind(this, contact.id)}>
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
